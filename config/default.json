@@ -1,0 +1,14 @@
+{
+    "auth": {
+        "username": "username",
+        "password": "password_plaintext"
+    },
+    "port": 9999,
+    "mongodb": {
+        "host": "mongo.hostname.com",
+        "port": 27017,
+        "db": "mongo_db_name",
+        "user": "mongo_db_user",
+        "password": "mongo_db_password_plaintext"
+    }
+}
