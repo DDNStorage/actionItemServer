@@ -1,0 +1,26 @@
+{
+  "name": "actionItemServer",
+  "version": "0.0.1",
+  "description": "Simple server to manage action items",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "John D. Lewis <31732476+jolewis-ddn@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.6",
+    "debug": "^4.3.1",
+    "fastify": "^3.14.0",
+    "fastify-auth": "^1.0.1",
+    "fastify-basic-auth": "^1.0.1",
+    "fastify-cors": "^5.2.0",
+    "fastify-helmet": "^5.3.0",
+    "fastify-mongodb": "^4.0.0",
+    "fastify-static": "^4.0.1",
+    "lokijs": "^1.5.11",
+    "mongodb": "^4.0.1",
+    "xxhash": "^0.3.0"
+  }
+}
