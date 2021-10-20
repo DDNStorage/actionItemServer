@@ -1,0 +1,107 @@
+<!-- @format -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Action Item Viewer</title>
+    <style>
+        :any-link {
+            text-decoration: none;
+        }
+
+        h2 {
+            display: inline-block;
+        }
+
+        .mtgDateTime {
+            float: right;
+            font-size: medium;
+            font-weight: 100;
+            padding: 10px 20px;
+        }
+
+        .levels {
+            font-size: small;
+        }
+
+	.unknown { font-size: smaller; color: gray; }
+
+    </style>
+  </head>
+  <body>
+    <h1>Action Item Viewer</h1>
+
+    <div class="container mw-100">
+        <div class="row">
+            <div class="col">
+                <div id="ai-data"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mw-100">
+        <div class="row">
+            <div class="col">
+                <a href="/parser.html">Parser</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <script>
+        const tableHeader = `<table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Action Item</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Levels</th>
+                    </tr>
+                </thead>
+                <tbody>`
+        const tableFooter = `</tbody></table>`
+        let aidata = []
+        let formattedAiData = ''
+
+        document.querySelector('#ai-data').innerHTML = '<p>Loading...</p>'
+        
+        fetch('/list', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            let lastMeeting = false
+            // console.log(data);
+            data.forEach((d) => {
+                if (d.Meeting.Name != lastMeeting) {
+                    if (lastMeeting) {
+                        formattedAiData += tableFooter
+                    }
+                    formattedAiData += `<h2 title="${d._id}">${d.Meeting.Name}</h2><h3 class="mtgDateTime">Date/Time: ${new Date(d.Meeting.Date).toLocaleString()}</h3>`
+                    formattedAiData += tableHeader
+                    lastMeeting = d.Meeting.Name
+                }
+                formattedAiData += `<tr><td class="ai">${d.AI}</td><td class="owner">${d.Owner}</td><td class="status">${d.Status ? `<span title="${new Date(d.Status.Dated)}">${d.Status.Value}</span>` : "<span class='unknown'>unknown</span>"}</td><td class="levels">${d.Levels.join('/')}</td></tr>`
+            })
+            formattedAiData += tableFooter
+        })
+        .catch(error => console.error(error))
+        .finally(() => {
+            document.querySelector('#ai-data').innerHTML = formattedAiData
+        })
+
+    </script>  
+    </body>
+</html>
+    
