@@ -21,7 +21,6 @@
     "fastify-static": "^4.0.1",
     "lokijs": "^1.5.11",
     "mongodb": "^4.0.1",
-    "queue-microtask": "^1.2.3",
     "xxhash": "^0.3.0"
   }
 }

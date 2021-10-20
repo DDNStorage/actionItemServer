@@ -29,9 +29,6 @@
         .levels {
             font-size: small;
         }
-
-	.unknown { font-size: smaller; color: gray; }
-
     </style>
   </head>
   <body>
@@ -62,7 +59,6 @@
                     <tr>
                         <th scope="col">Action Item</th>
                         <th scope="col">Owner</th>
-                        <th scope="col">Status</th>
                         <th scope="col">Levels</th>
                     </tr>
                 </thead>
@@ -92,7 +88,7 @@
                     formattedAiData += tableHeader
                     lastMeeting = d.Meeting.Name
                 }
-                formattedAiData += `<tr><td class="ai">${d.AI}</td><td class="owner">${d.Owner}</td><td class="status">${d.Status ? `<span title="${new Date(d.Status.Dated)}">${d.Status.Value}</span>` : "<span class='unknown'>unknown</span>"}</td><td class="levels">${d.Levels.join('/')}</td></tr>`
+                formattedAiData += `<tr><td class="ai">${d.AI}</td><td class="owner">${d.Owner}</td><td class="levels">${d.Levels.join('/')}</td></tr>`
             })
             formattedAiData += tableFooter
         })
